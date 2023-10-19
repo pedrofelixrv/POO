@@ -1,4 +1,6 @@
 from conta import Conta
+from classexception import CIException
+from classexpection1 import SIException
 
 class Banco:
     def __init__(self):
@@ -22,13 +24,16 @@ class Banco:
         else:
             print('Conta inexistente!')
 
-
     def debitar(self, numero, valor):
-        conta = self.procurar_conta(numero)
-        if conta:
+        try:
+            conta = self.procurar_conta(numero)
             conta.debitar(valor)
-        else:
-            print('Conta inexistente!')
+
+        except CIException(numero) as errorci:
+            print(errorci)
+
+        except SIException(conta.get_saldo(), conta.get_numero()) as errorsi:
+            print(errorsi)
 
     def saldo(self, numero):
         # Procurar se a conta existe:
@@ -54,4 +59,4 @@ class Banco:
             print('Conta inexistente!')
 
     def render_juros(self, numero):
-        if
+        pass
